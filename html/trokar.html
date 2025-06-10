@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Troka - Chat de Intercambio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --color-primary: #81D4FA; /* Celeste */
+      --color-secondary: #66BB6A; /* Verde */
+      --color-light: #ffffff;  /* Blanco */
+      --color-dark: #37474F;
+      --color-gray: #ECEFF1;
+      --color-light-gray: #F5F7F8;
+      --color-message-received: #E3F2FD;
+      --color-message-sent: #E8F5E9;
+      --color-border: #DFE5E8;
+    }
+    
+    /* Reset básico */
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      color: var(--color-dark);
+    }
+    
+    /* HEADER */
+    .site-header {
+      background: var(--color-light);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      height: 70px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .header-inner {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      height: 100%;
+    }
+    
+    .logo {
+      height: 50px;
+      border-radius: 8px;
+    }
+    
+    .user-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .user-actions .btn {
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+    
+    .user-logo img {
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--color-primary);
+    }
+    
+    .btn-truekea {
+      padding: 8px 16px;
+      background: var(--color-secondary);
+      color: var(--color-light);
+      border-radius: 20px;
+      font-weight: 500;
+      transition: transform 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+    
+    .btn-truekea:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      background: #4CAF50;
+      color: white;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    .chat-container {
+      max-width: 800px;
+      margin: 40px auto;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: var(--color-light);
+      border: 1px solid var(--color-border);
+    }
+    
+    /* Header del Chat */
+    .chat-header {
+      background: linear-gradient(to right, var(--color-primary), #4FC3F7);
+      padding: 16px 20px !important;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .chat-header-user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .chat-header img {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      border: 2px solid var(--color-light);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    
+    .chat-header h5 {
+      margin-bottom: 0;
+      font-weight: 600;
+      color: var(--color-light);
+    }
+    
+    .user-status {
+      font-size: 0.85rem;
+      color: var(--color-light);
+      opacity: 0.9;
+      margin-top: 2px;
+    }
+    
+    .chat-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .action-btn {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .action-btn:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    /* Sección de información del producto */
+    .product-info-section {
+      padding: 15px;
+      background-color: rgba(129, 212, 250, 0.1);
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .product-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 1px solid var(--color-border);
+    }
+    
+    .product-details {
+      flex: 1;
+    }
+    
+    .product-title {
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: var(--color-dark);
+    }
+    
+    .product-description {
+      font-size: 0.85rem;
+      color: #607D8B;
+      margin-bottom: 5px;
+    }
+    
+    .product-price {
+      font-weight: 600;
+      color: var(--color-secondary);
+      font-size: 0.95rem;
+    }
+    
+    .trokar-btn {
+      background-color: var(--color-secondary);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .trokar-btn:hover {
+      background-color: #43A047;
+      transform: translateY(-2px);
+    }
+    
+    /* Cuerpo del Chat */
+    .chat-body {
+      height: 450px !important;
+      padding: 20px !important;
+      overflow-y: auto;
+      background-color: var(--color-light-gray);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .chat-body::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .chat-body::-webkit-scrollbar-thumb {
+      background-color: var(--color-primary);
+      border-radius: 10px;
+    }
+    
+    .chat-body::-webkit-scrollbar-track {
+      background-color: var(--color-light-gray);
+    }
+    
+    /* Burbujas de mensaje */
+    .message {
+      max-width: 75%;
+      padding: 12px 16px;
+      border-radius: 18px;
+      position: relative;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+    
+    .message-received-container {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    
+    .message-sent-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 8px;
+    }
+    
+    .message-received {
+      background-color: var(--color-message-received);
+      color: var(--color-dark);
+      border-bottom-left-radius: 5px;
+    }
+    
+    .message-sent {
+      background-color: var(--color-message-sent);
+      color: var(--color-dark);
+      border-bottom-right-radius: 5px;
+      align-self: flex-end;
+    }
+    
+    .message-time {
+      font-size: 0.7rem;
+      color: #90A4AE;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    
+    .message-sent .message-time {
+      justify-content: flex-end;
+    }
+
+    .message-sent-container .message-time {
+      text-align: right;
+      justify-content: flex-end;
+    }
+    
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .typing {
+      display: flex;
+      gap: 3px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #999;
+      animation: typing 1.4s infinite ease-in-out;
+    }
+
+    .dot:nth-child(1) { animation-delay: -0.32s; }
+    .dot:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes typing {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+    
+    /* Footer del Chat */
+    .chat-footer {
+      padding: 16px 20px !important;
+      background-color: var(--color-light);
+      border-top: 1px solid var(--color-border);
+    }
+    
+    .chat-input-container {
+      display: flex;
+      align-items: center;
+      background-color: var(--color-light-gray);
+      border-radius: 24px;
+      padding: 6px 8px 6px 16px;
+      border: 1px solid var(--color-border);
+    }
+    
+    .message-input {
+      flex: 1;
+      border: none !important;
+      outline: none !important;
+      background-color: transparent !important;
+      padding: 8px 0 !important;
+      font-size: 0.95rem !important;
+    }
+    
+    .message-input:focus {
+      box-shadow: none !important;
+    }
+    
+    .attachment-btn, .emoji-btn {
+      background: transparent;
+      border: none;
+      color: #90A4AE;
+      padding: 6px;
+      margin-right: 5px;
+      cursor: pointer;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+    }
+    
+    .attachment-btn:hover, .emoji-btn:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      color: var(--color-primary);
+    }
+    
+    .send-btn {
+      background: linear-gradient(to right, var(--color-secondary), #43A047);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-left: 8px;
+      transition: transform 0.2s;
+    }
+    
+    .send-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* Superposición de éxito */
+    .success-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .success-content {
+      background: white;
+      padding: 3rem;
+      border-radius: 20px;
+      text-align: center;
+      animation: bounceIn 0.5s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .success-icon {
+      font-size: 4rem;
+      color: var(--color-secondary);
+      margin-bottom: 1rem;
+      animation: pulse 2s infinite;
+    }
+
+    .success-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--color-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .success-message {
+      color: #607D8B;
+      font-size: 1rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.3); opacity: 0; }
+      50% { transform: scale(1.05); }
+      70% { transform: scale(0.9); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
+    /* Responsivo */
+    @media (max-width: 576px) {
+      .chat-container {
+        margin: 10px;
+        max-width: 100%;
+      }
+      
+      .action-btn {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .chat-body {
+        height: calc(100vh - 240px) !important;
+      }
+      
+      .message {
+        max-width: 85%;
+      }
+
+      .header-inner {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .user-actions {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .product-info-section {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- HEADER / BANNER -->
+  <header class="site-header"> 
+  <div class="header-inner">
+    <img src="../img/Leonardo_Phoenix_10_Design_a_professional_logo_for_Troka_a_bar_0 (1).jpg (1).jpg" alt="Logo Troka" class="logo">
+    
+    <!-- Botones usuario y Truekea -->
+    <div class="user-actions">
+      <a  href="../chats.html" class="btn btn-truekea">
+        <i class="fas fa-store me-1"></i> Chats
+      </a>
+
+      <a href="../nosotros.html" class="btn btn-truekea">
+        <i class="fas fa-users me-1"></i> Nosotros 
+      </a>
+
+      <a href="../index.html" class="btn btn-truekea">
+        <i class="fas fa-exchange-alt me-1"></i> Inicio
+      </a> 
+
+      <button href="nosotros.html" class="btn user-logo">
+        <img src="img/Usuario-Icono.jpg" alt="Mi perfil">
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="chat-container">
+    <!-- Encabezado del chat -->
+    <div class="chat-header">
+      <div class="chat-header-user">
+        <img src="https://via.placeholder.com/50x50/2196F3/white?text=JP" class="rounded-circle" alt="Foto usuario">
+        <div>
+          <h5>Juan Pérez</h5>
+          <div class="user-status">En línea ahora</div>
+        </div>
+      </div>
+      <div class="chat-actions">
+        <button class="action-btn">
+          <i class="fas fa-phone"></i>
+        </button>
+        <button class="action-btn">
+          <i class="fas fa-video"></i>
+        </button>
+        <button class="action-btn">
+          <i class="fas fa-ellipsis-v"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Información del producto -->
+    <div class="product-info-section">
+      <img src="https://via.placeholder.com/80x80/FF9800/white?text=🎧" alt="Producto" class="product-image">
+      <div class="product-details">
+        <h5 class="product-title">Auriculares Gaming RGB</h5>
+        <p class="product-description">Auriculares gaming con luces RGB y micrófono incorporado.</p>
+        <div class="product-price">Valor estimado: $18.000</div>
+      </div>
+      <button class="trokar-btn" id="trokarBtn">
+        <i class="fas fa-exchange-alt me-1"></i> Trokar
+      </button>
+    </div>
+
+    <!-- Cuerpo del chat -->
+    <div id="chatBody" class="chat-body">
+      <!-- Día -->
+      <div class="text-center my-3">
+        <span style="background-color: rgba(0,0,0,0.1); padding: 5px 15px; border-radius: 15px; font-size: 0.8rem;">
+          Hoy, 23 de abril
+        </span>
+      </div>
+      
+      <!-- Mensaje recibido -->
+      <div class="message-received-container">
+        <img src="https://via.placeholder.com/36x36/2196F3/white?text=JP" alt="Usuario" class="user-avatar">
+        <div>
+          <div class="message message-received">
+            ¡Hola! ¿Seguís teniendo disponible los auriculares gaming?
+          </div>
+          <div class="message-time">
+            <i class="far fa-clock" style="font-size: 0.7rem;"></i> 10:15
+          </div>
+        </div>
+      </div>
+      
+      <!-- Mensaje enviado -->
+      <div class="message-sent-container">
+        <div>
+          <div class="message message-sent">
+            ¡Hola Juan! Sí, todavía los tengo disponibles. Están en perfecto estado, los usé por 3 meses solamente.
+          </div>
+          <div class="message-time">
+            <i class="far fa-clock" style="font-size: 0.7rem;"></i> 10:18
+            <i class="fas fa-check-double" style="color: var(--color-primary); font-size: 0.7rem;"></i>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Mensaje recibido -->
+      <div class="message-received-container">
+        <img src="https://via.placeholder.com/36x36/2196F3/white?text=JP" alt="Usuario" class="user-avatar">
+        <div>
+          <div class="message message-received">
+            ¡Genial! Me interesa intercambiarlos. Tengo una cámara web HD nueva que no uso, ¿te interesaría?
+          </div>
+          <div class="message-time">
+            <i class="far fa-clock" style="font-size: 0.7rem;"></i> 10:22
+          </div>
+        </div>
+      </div>
+      
+      <!-- Mensaje enviado -->
+      <div class="message-sent-container">
+        <div>
+          <div class="message message-sent">
+            Podría interesarme. ¿Tenés fotos y especificaciones de la cámara?
+          </div>
+          <div class="message-time">
+            <i class="far fa-clock" style="font-size: 0.7rem;"></i> 10:25
+            <i class="fas fa-check-double" style="color: var(--color-primary); font-size: 0.7rem;"></i>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Mensaje recibido con imagen -->
+      <div class="message-received-container">
+        <img src="https://via.placeholder.com/36x36/2196F3/white?text=JP" alt="Usuario" class="user-avatar">
+        <div>
+          <div class="message message-received">
+            Claro, acá tenés. Es una cámara Logitech HD Pro, resolución 1080p, micrófono incorporado con cancelación de ruido.
+          </div>
+          <div style="margin-top: 8px;">
+            <img src="https://via.placeholder.com/200x150/666/white?text=📷" alt="Imagen cámara web" style="border-radius: 10px; max-width: 200px;">
+          </div>
+          <div class="message-time">
+            <i class="far fa-clock" style="font-size: 0.7rem;"></i> 10:27
+          </div>
+        </div>
+      </div>
+      
+      <!-- Escribiendo... -->
+      <div class="message-received-container" id="typingIndicator">
+        <img src="https://via.placeholder.com/36x36/2196F3/white?text=JP" alt="Usuario" class="user-avatar">
+        <div class="message message-received" style="padding: 13px 20px;">
+          <div class="typing">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Caja de mensaje -->
+    <div class="chat-footer">
+      <div class="chat-input-container">
+        <button class="emoji-btn">
+          <i class="far fa-smile"></i>
+        </button>
+        <button class="attachment-btn">
+          <i class="fas fa-paperclip"></i>
+        </button>
+        <input type="text" class="message-input" placeholder="Escribe un mensaje...">
+        <button class="send-btn">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Superposición de éxito -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-content">
+    <div class="success-icon">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <div class="success-title">¡Intercambio Exitoso!</div>
+    <div class="success-message">Tu trueque se ha realizado con éxito</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const trokarBtn = document.getElementById('trokarBtn');
+    const successOverlay = document.getElementById('successOverlay');
+
+    trokarBtn.addEventListener('click', function() {
+        // Mostrar la superposición de éxito
+        successOverlay.style.display = 'flex';
+        
+        // Ocultar después de 3 segundos
+        setTimeout(function() {
+            successOverlay.style.display = 'none';
+        }, 3000);
+        
+        // Cambiar el texto del botón temporalmente
+        const originalText = trokarBtn.innerHTML;
+        trokarBtn.innerHTML = '<i class="fas fa-check me-1"></i> ¡Trokado!';
+        trokarBtn.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+        
+        // Restaurar el botón después de 3 segundos
+        setTimeout(function() {
+            trokarBtn.innerHTML = originalText;
+            trokarBtn.style.background = 'linear-gradient(135deg, var(--color-primary), #45a049)';
+        }, 3000);
+    });
+
+    // Cerrar overlay al hacer clic fuera del contenido
+    successOverlay.addEventListener('click', function(e) {
+        if (e.target === successOverlay) {
+            successOverlay.style.display = 'none';
+        }
+    });
+});
+</script>
+
+</body>
+</html>
