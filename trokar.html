@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Troka - Publicar Trueque</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rF1p2576/eM7xZ1D89Q5tZ7uC14jR3G659N" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-rF1p2576/eM7xZ1D89Q5tZ7uC14jR3G659N" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    
+:root {
+  --color-primary: #81D4FA; /* Celeste */
+  --color-secondary: #66BB6A; /* Verde */
+  --color-light: #ffffff;  /* Blanco */
+  --color-dark: #37474F;
+  --color-gray: #ECEFF1;
+}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      line-height: 1.6;
+    }
+
+    
+    /* HEADER STYLES */
+.site-header {
+  background: var(--color-light);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  height: 70px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+    
+
+.header-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 100%;
+}
+
+    .logo {
+      height: 60px;
+      width: auto;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .user-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .btn-truekea {
+      background: linear-gradient(135deg, #4CAF50, #45a049);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-truekea:hover {
+      background: linear-gradient(135deg, #45a049, #4CAF50);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      color: white;
+    }
+
+    .user-logo {
+      background: white;
+      border: 2px solid #4CAF50;
+      border-radius: 50%;
+      padding: 0.25rem;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-logo img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    /* MAIN CONTENT */
+    .main-content {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    .page-title {
+      color: #2c3e50;
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .categories-btn {
+      background: linear-gradient(135deg, #4CAF50, #45a049);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .categories-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .new-publication-btn {
+      background: linear-gradient(135deg, #2196F3, #1976D2);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .new-publication-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    /* FORM CONTAINER */
+    .form-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .image-section, .description-section {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .image-section:hover, .description-section:hover {
+      transform: translateY(-5px);
+    }
+
+    .image-upload {
+      width: 100%;
+      height: 250px;
+      border: 3px dashed #ddd;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .image-upload:hover {
+      border-color: #4CAF50;
+      background: linear-gradient(135deg, #e8f5e8, #f1f8e9);
+    }
+
+    .image-upload.has-image {
+      border: none;
+    }
+
+    .image-placeholder {
+      text-align: center;
+      color: #6c757d;
+    }
+
+    .image-placeholder h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #495057;
+    }
+
+    .image-placeholder p {
+      font-size: 1rem;
+      color: #6c757d;
+    }
+
+    .uploaded-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .category-btn {
+      background: linear-gradient(135deg, #2196F3, #1976D2);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      margin-top: 1rem;
+      width: 100%;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .category-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .name-btn {
+      background: linear-gradient(135deg, #4CAF50, #45a049);
+      color: white;
+      border: none;
+      padding: 1rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      margin-top: 1rem;
+      width: 100%;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .name-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .description-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #2c3e50;
+      font-weight: 600;
+    }
+
+    .description-area {
+      width: 100%;
+      height: 200px;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      padding: 1rem;
+      resize: vertical;
+      font-family: inherit;
+      font-size: 1rem;
+      background: #f8f9fa;
+      transition: border-color 0.3s ease;
+    }
+
+    .description-area:focus {
+      outline: none;
+      border-color: #4CAF50;
+      background: white;
+    }
+
+    .publish-btn {
+      background: linear-gradient(135deg, #4CAF50, #45a049);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 600;
+      float: right;
+      margin-top: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .publish-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    /* FOOTER STYLES */
+    footer {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  padding: 30px 0;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 20px;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 250px;
+  margin-bottom: 20px;
+}
+
+.footer-title {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background-color: var(--color-secondary);
+}
+
+.footer-links a {
+  display: block;
+  color: #B0BEC5;
+  text-decoration: none;
+  margin-bottom: 8px;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--color-primary);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  margin-top: 20px;
+  border-top: 1px solid #455A64;
+  width: 100%;
+}
+    /* MODALS */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      background: white;
+      margin: 10% auto;
+      padding: 2rem;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: modalAppear 0.3s ease;
+    }
+
+    @keyframes modalAppear {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .modal-content h3 {
+      color: #2c3e50;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .modal-input {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .modal-input:focus {
+      outline: none;
+      border-color: #4CAF50;
+    }
+
+    .modal-btn {
+      background: linear-gradient(135deg, #4CAF50, #45a049);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 0.5rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .modal-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .modal-btn.cancel {
+      background: linear-gradient(135deg, #6c757d, #5a6268);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .header-inner {
+        padding: 0 1rem;
+      }
+      
+      .user-actions {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      
+      .btn-truekea {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+      }
+      
+      .form-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .main-content {
+        padding: 0 1rem;
+      }
+      
+      .page-title {
+        font-size: 1.5rem;
+      }
+    }
+
+    /* Hidden file input */
+    #imageInput {
+      display: none;
+    }
+
+</style>
+</head>
+<body>
+  <!-- HEADER / BANNER -->
+  <header class="site-header"> 
+    <div class="header-inner">
+      <img src="img/Leonardo_Phoenix_10_Design_a_professional_logo_for_Troka_a_bar_0 (1).jpg" alt="Logo Troka" class="logo">
+      
+      <!-- Botones usuario y Truekea -->
+      <div class="user-actions">
+        <a href="chats.html" class="btn btn-truekea">
+          <i class="fas fa-comments me-1"></i> Chats
+        </a>
+
+        <a href="nosotros.html" class="btn btn-truekea">
+          <i class="fas fa-users me-1"></i> Nosotros 
+        </a>
+
+        <a href="index.html" class="btn btn-truekea">
+          <i class="fa-solid fa-house me-1"></i> Inicio
+        </a> 
+
+        <button class="btn user-logo">
+          <img src="/api/placeholder/40/40" alt="Mi perfil">
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <h1 class="page-title">Publicar trueque</h1>
+    
+
+    <br>
+    <button class="new-publication-btn">
+      <i class="fas fa-plus me-2"></i>Nueva publicación
+    </button>
+
+    <div class="form-container">
+      <div class="image-section">
+        <div class="image-upload" id="imageUpload">
+          <div class="image-placeholder" id="imagePlaceholder">
+            <h3><i class="fas fa-image mb-2"></i><br>IMAGEN</h3>
+            <p>Del producto</p>
+          </div>
+        </div>
+        <input type="file" id="imageInput" accept="image/*">
+        <button class="category-btn" id="categoryBtn">
+          <i class="fas fa-tag me-2"></i>Categoría
+        </button>
+        <button class="name-btn" id="nameBtn">
+          <i class="fas fa-edit me-2"></i>Nombre
+        </button>
+      </div>
+
+      <div class="description-section">
+        <h2 class="description-title">
+          <i class="fas fa-align-left me-2"></i>Descripción
+        </h2>
+        <textarea class="description-area" placeholder="Describe tu producto aquí... ¿Qué lo hace especial? ¿En qué condiciones está? ¿Por qué lo quieres intercambiar?"></textarea>
+        <button class="publish-btn">
+          <i class="fas fa-paper-plane me-2"></i>Publicar
+        </button>
+      </div>
+    </div>
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3 class="footer-title">Troka</h3>
+        <p>La plataforma líder de intercambio de productos usados. Damos nueva vida a tus artículos.</p>
+      </div>
+      <div class="footer-column">
+        <h3 class="footer-title">Enlaces</h3>
+        <div class="footer-links">
+          <a href="#">Inicio</a>
+          <a href="#">Categorías</a>
+          <a href="#">Cómo funciona</a>
+          <a href="#">Contacto</a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3 class="footer-title">Comunidad</h3>
+        <div class="footer-links">
+          <a href="#">Blog</a>
+          <a href="#">Historias de éxito</a>
+          <a href="#">Reglas de intercambio</a>
+          <a href="#">Preguntas frecuentes</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Troka - Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modals -->
+  <div id="nameModal" class="modal">
+    <div class="modal-content">
+      <h3><i class="fas fa-edit mb-2"></i><br>Nombre del Producto</h3>
+      <input type="text" id="productName" class="modal-input" placeholder="Ingresa el nombre del producto">
+      <button class="modal-btn" onclick="saveName()">
+        <i class="fas fa-save me-1"></i>Guardar
+      </button>
+      <button class="modal-btn cancel" onclick="closeModal('nameModal')">
+        <i class="fas fa-times me-1"></i>Cancelar
+      </button>
+    </div>
+  </div>
+
+  <div id="categoryModal" class="modal">
+    <div class="modal-content">
+      <h3><i class="fas fa-tags mb-2"></i><br>Seleccionar Categoría</h3>
+      <select id="categorySelect" class="modal-input">
+        <option value="">Selecciona una categoría</option>
+        <option value="electronica">📱 Electrónica</option>
+        <option value="ropa">👕 Ropa y Accesorios</option>
+        <option value="hogar">🏠 Hogar y Jardín</option>
+        <option value="deportes">⚽ Deportes</option>
+        <option value="libros">📚 Libros</option>
+        <option value="juguetes">🧸 Juguetes</option>
+        <option value="vehiculos">🚗 Vehículos</option>
+        <option value="instrumentos">🎸 Instrumentos</option>
+        <option value="otros">📦 Otros</option>
+      </select>
+      <button class="modal-btn" onclick="saveCategory()">
+        <i class="fas fa-save me-1"></i>Guardar
+      </button>
+      <button class="modal-btn cancel" onclick="closeModal('categoryModal')">
+        <i class="fas fa-times me-1"></i>Cancelar
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Image upload functionality
+    const imageUpload = document.getElementById('imageUpload');
+    const imageInput = document.getElementById('imageInput');
+    const imagePlaceholder = document.getElementById('imagePlaceholder');
+
+    imageUpload.addEventListener('click', () => {
+      imageInput.click();
+    });
+
+    imageInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          imageUpload.innerHTML = `<img src="${e.target.result}" alt="Producto" class="uploaded-image">`;
+          imageUpload.classList.add('has-image');
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Modal functionality
+    const nameBtn = document.getElementById('nameBtn');
+    const categoryBtn = document.getElementById('categoryBtn');
+
+    nameBtn.addEventListener('click', () => {
+      document.getElementById('nameModal').style.display = 'block';
+    });
+
+    categoryBtn.addEventListener('click', () => {
+      document.getElementById('categoryModal').style.display = 'block';
+    });
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+    }
+
+    function saveName() {
+      const productName = document.getElementById('productName').value;
+      if (productName.trim()) {
+        document.getElementById('nameBtn').innerHTML = `<i class="fas fa-edit me-2"></i>${productName}`;
+        closeModal('nameModal');
+        document.getElementById('productName').value = '';
+      } else {
+        alert('Por favor ingresa un nombre para el producto');
+      }
+    }
+
+    function saveCategory() {
+      const categorySelect = document.getElementById('categorySelect');
+      const selectedCategory = categorySelect.value;
+      const selectedText = categorySelect.options[categorySelect.selectedIndex].text;
+      
+      if (selectedCategory) {
+        document.getElementById('categoryBtn').innerHTML = `<i class="fas fa-tag me-2"></i>${selectedText}`;
+        closeModal('categoryModal');
+      } else {
+        alert('Por favor selecciona una categoría');
+      }
+    }
+
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal')) {
+        e.target.style.display = 'none';
+      }
+    });
+
+    // Publish functionality
+    document.querySelector('.publish-btn').addEventListener('click', () => {
+      const description = document.querySelector('.description-area').value;
+      const productName = document.getElementById('nameBtn').textContent;
+      const category = document.getElementById('categoryBtn').textContent;
+      const hasImage = document.querySelector('.image-upload').classList.contains('has-image');
+      
+      if (description.trim() && productName !== 'Nombre' && category !== 'Categoría' && hasImage) {
+        // Simulamos la publicación exitosa
+        alert('¡Publicación creada exitosamente! 🎉\n\nTu producto ha sido publicado y ya está disponible para intercambio.');
+        
+        // Opcional: limpiar el formulario
+        document.querySelector('.description-area').value = '';
+        document.getElementById('nameBtn').innerHTML = '<i class="fas fa-edit me-2"></i>Nombre';
+        document.getElementById('categoryBtn').innerHTML = '<i class="fas fa-tag me-2"></i>Categoría';
+        document.querySelector('.image-upload').classList.remove('has-image');
+        document.querySelector('.image-upload').innerHTML = `
+          <div class="image-placeholder">
+            <h3><i class="fas fa-image mb-2"></i><br>IMAGEN</h3>
+            <p>Del producto</p>
+          </div>
+        `;
+        
+      } else {
+        let missingFields = [];
+        if (!hasImage) missingFields.push('imagen');
+        if (productName === 'Nombre') missingFields.push('nombre del producto');
+        if (category === 'Categoría') missingFields.push('categoría');
+        if (!description.trim()) missingFields.push('descripción');
+        
+        alert(`Por favor completa los siguientes campos:\n• ${missingFields.join('\n• ')}`);
+      }
+    });
+
+    // Script para manejar clics en categorías (del código original)
+    document.querySelectorAll('.category-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const category = this.textContent.toLowerCase();
+        window.location.href = `categorias/${category}.html`;
+      });
+    });
+  </script>
+</body>
+</html>
