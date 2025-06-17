@@ -21,7 +21,7 @@
     <!-- Botones usuario y Truekea -->
     <div class="user-actions">
       <a href="index.html" class="btn btn-truekea">
-        <i class="fas fa-store me-1"></i> Inicio
+        <i class="fa-solid fa-house me-1"></i> Inicio
       </a>
 
       <a href="nosotros.html" class="btn btn-truekea">
@@ -33,7 +33,7 @@
       </a> 
 
       <a href="nosotros.html" class="btn user-logo">
-        <img src="/api/placeholder/40/40" alt="Mi perfil">
+        <img src="img/fotousuario.jpg" alt="Mi perfil">
       </a>
     </div>
   </div>
@@ -119,7 +119,7 @@
     <div class="chat-container">
       <div class="chat-header">
         <div class="chat-header-user">
-          <img src="/api/placeholder/50/50" class="rounded-circle" alt="Foto usuario">
+          <img src="img/fotousuario.jpg" class="rounded-circle" alt="Foto usuario">
           <div>
             <h5>Juan Pérez</h5>
             <div class="user-status">En línea ahora</div>
@@ -139,15 +139,15 @@
       </div>
       
       <div class="product-info-section">
-        <img src="/api/placeholder/80/80" alt="Producto" class="product-image">
+        <img src="img/productos/auriculares.jpg" alt="Producto" class="product-image">
         <div class="product-details">
           <h5 class="product-title">Auriculares Gaming RGB</h5>
           <p class="product-description">Auriculares gaming con luces RGB y micrófono incorporado.</p>
           <div class="product-price">Valor estimado: $18.000</div>
         </div>
-        <button class="trokar-btn">
-          <i class="fas fa-exchange-alt me-1"></i> Trokar
-        </button>
+        <button class="trokar-btn" id="trokarBtn">
+        <i class="fas fa-exchange-alt me-1"></i> Trokar
+      </button>
       </div>
 
       <div id="chatBody" class="chat-body">
@@ -212,7 +212,7 @@
               Claro, acá tenés. Es una cámara Logitech HD Pro, resolución 1080p, micrófono incorporado con cancelación de ruido.
             </div>
             <div style="margin-top: 8px;">
-              <img src="/api/placeholder/200/150" alt="Imagen cámara web" style="border-radius: 10px; max-width: 200px;">
+              <img src="img/productos/auriculares.jpg" alt="Imagen cámara web" style="border-radius: 10px; max-width: 200px;">
             </div>
             <div class="message-time">
               <i class="far fa-clock" style="font-size: 0.7rem;"></i> 10:27
@@ -250,5 +250,54 @@
   </div>
 
   <script src="js/chats.js"></script>
+  <!-- Superposición de éxito -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-content">
+    <div class="success-icon">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <div class="success-title">¡Intercambio Exitoso!</div>
+    <div class="success-message">Tu trueque se ha realizado con éxito</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const trokarBtn = document.getElementById('trokarBtn');
+    const successOverlay = document.getElementById('successOverlay');
+
+    trokarBtn.addEventListener('click', function() {
+        // Mostrar la superposición de éxito
+        successOverlay.style.display = 'flex';
+        
+        // Ocultar después de 3 segundos
+        setTimeout(function() {
+            successOverlay.style.display = 'none';
+        }, 3000);
+        
+        // Cambiar el texto del botón temporalmente
+        const originalText = trokarBtn.innerHTML;
+        trokarBtn.innerHTML = '<i class="fas fa-check me-1"></i> ¡Trokado!';
+        trokarBtn.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+        
+        // Restaurar el botón después de 3 segundos
+        setTimeout(function() {
+            trokarBtn.innerHTML = originalText;
+            trokarBtn.style.background = 'linear-gradient(135deg, var(--color-primary), #45a049)';
+        }, 3000);
+    });
+
+    // Cerrar overlay al hacer clic fuera del contenido
+    successOverlay.addEventListener('click', function(e) {
+        if (e.target === successOverlay) {
+            successOverlay.style.display = 'none';
+        }
+    });
+});
+</script>
+
+
 </body>
 </html>
