@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="html/trokar.css">
+   <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
 
@@ -19,10 +20,10 @@
     
     <!-- Botones usuario y Truekea -->
     <div class="user-actions">
-      <a  href="chats.html" class="btn btn-truekea">
-        <i class="fas fa-store me-1"></i> Chats
+      <a href="chats.html" class="btn btn-truekea">
+        <i class="fas fa-comments me-1"></i> Chats
       </a>
-
+      
       <a href="nosotros.html" class="btn btn-truekea">
         <i class="fas fa-users me-1"></i> Nosotros 
       </a>
@@ -31,33 +32,57 @@
         <i class="fas fa-exchange-alt me-1"></i> Trokar
       </a> 
 
+      <!-- Login -->
+<button class="btn btn-truekea" data-bs-toggle="modal" data-bs-target="#loginModal" onclick="openModal()">Iniciar Sesión</button>
       <button href="nosotros.html" class="btn user-logo">
-        <img src="img/Usuario-Icono.jpg" alt="Mi perfil">
+        <img src="img/fotousuario.jpg" alt="Mi perfil">
       </button>
     </div>
   </div>
 </header>
 
+ <div class="demo-container">
+
+  <!-- Login -->
+<div id="loginModal" >
+  <h2>Iniciar Sesión</h2>
+  <form id="loginForm">
+    <a>Usuario:</a><br>
+    <input type="text" id="username"><br>
+    <a>Contraseña:</a><br>
+    <input type="password" id="password"><br>
+    <div id="loginMessage" ></div><br>
+    <button type="button" onclick="validateLogin()">Ingresar</button>
+    <button type="button" onclick="closeModal()">Cancelar</button>
+  </form>
+</div>
+
+
+
+
+  
+
 <body>
  
   
-  <!-- CARRUSEL DE CATEGORÍAS -->
- <section class="category-section">
-    <div class="category-carousel">
-      <div class="carousel-wrapper">
-        <div class="category-item" onclick="location.href='#ropa'">Muebles</div>
-        <div class="category-item" onclick="location.href='#Vehículos'">Vehículos</div>
-        <div class="category-item" onclick="location.href='#Ropa'">Ropa</div>
-        <div class="category-item" onclick="location.href='#Casas'">Casas</div>
-        <div class="category-item" onclick="location.href='#Artículos'">Artículos</div>
-        <div class="category-item" onclick="location.href='#Videojuegos'">Videojuegos</div>
-        <div class="category-item" onclick="location.href='#Electrodomésticos'">Electrodomésticos</div>
-        <div class="category-item" onclick="location.href='#Herramientas'">Herramientas</div>
-        <div class="category-item" onclick="location.href='#Dispositivos'">Dispositivos</div>
-        <div class="category-item" onclick="location.href='#Accesorios'">Accesorios</div>
-      </div>
+<!-- CARRUSEL DE CATEGORÍAS -->
+<section class="category-section">
+  <div class="category-carousel">
+    <div class="carousel-wrapper">
+      <a href="#muebles" class="category-item">Muebles</a>
+      <a href="#Vehículos" class="category-item">Vehículos</a>
+      <a href="#Ropa" class="category-item">Ropa</a>
+      <a href="#Casas" class="category-item">Casas</a>
+      <a href="#Artículos" class="category-item">Artículos</a>
+      <a href="#Videojuegos" class="category-item">Videojuegos</a>
+      <a href="#Electrodomésticos" class="category-item">Electrodomésticos</a>
+      <a href="#Herramientas" class="category-item">Herramientas</a>
+      <a href="#Dispositivos" class="category-item">Dispositivos</a>
+      <a href="#Accesorios" class="category-item">Accesorios</a>
     </div>
-  </section>
+  </div>
+</section>
+
 
   <!-- PRODUCTOS DESTACADOS -->
   <section class="products-section">
@@ -66,7 +91,7 @@
       <!-- Producto 1 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Caravanas">
+          <img src="img/productos/caravanas.jpg" alt="Caravanas">
         </div>
         <div class="product-info">
           <span class="product-category">Accesorios</span>
@@ -79,26 +104,26 @@
       <!-- Producto 2 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Auriculares Gaming">
+          <img src="img/productos/auriculares.jpg" alt="Auriculares Gaming">
         </div>
         <div class="product-info">
           <span class="product-category">Dispositivos</span>
           <h3 class="product-title">Auriculares Gaming</h3>
           <p class="product-description">Auriculares con micrófono incorporado, sonido envolvente y luces RGB. Ideal para gamers.</p>
-          <a href="html/categorias/dispositivos/auriculares.html" class="btn-trokar">Trokar</a>
+          <a href="html/trokar.html" class="btn-trokar">Trokar</a>
         </div>
       </div>
 
       <!-- Producto 3 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Gorro de lana">
+          <img src="img/productos/gorrolana.jpg" alt="Gorro de lana">
         </div>
         <div class="product-info">
           <span class="product-category">Ropa</span>
           <h3 class="product-title">Gorro de lana tejido</h3>
           <p class="product-description">Gorro tejido a mano con lana de primera calidad. Abrigado y con diseño único.</p>
-          <a href="html/categorias/ropa/gorros.html" class="btn-trokar">Trokar</a>
+          <a href="html/trokar.html" class="btn-trokar">Trokar</a>
         </div>
       </div>
     </section>
@@ -116,25 +141,25 @@
       <!-- Producto 1 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Chaqueta de cuero">
+          <img src="img/productos/cafetera.jpg" alt="Cafetera automática">
         </div>
         <div class="product-info">
-          <span class="product-category">Ropa</span>
-          <h3 class="product-title">Chaqueta de cuero</h3>
-          <p class="product-description">Chaqueta de cuero genuino en excelente estado. Talla M, color negro con detalles en plata.</p>
-          <a href="html/trokar.html" class="btn-trokar">Trokar</a>
+          <span class="product-category">Electrodomésticos</span>
+          <h3 class="product-title">Cafetera automática</h3>
+          <p class="product-description">Cafetera con molinillo integrado y programador. Prepara todo tipo de cafés con un solo botón.</p>
+         <a href="html/trokar.html" class="btn-trokar">Trokar</a>
         </div>
       </div>
       
       <!-- Producto 2 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Vestido elegante">
+          <img src="img/productos/licuadora.jpg" alt="Licuadora profesional">
         </div>
         <div class="product-info">
-          <span class="product-category">Ropa</span>
-          <h3 class="product-title">Vestido elegante</h3>
-          <p class="product-description">Vestido para ocasiones especiales, color azul noche. Talla 38, usado una sola vez.</p>
+          <span class="product-category">Electrodomésticos</span>
+          <h3 class="product-title">Licuadora profesional</h3>
+          <p class="product-description">Licuadora de alta potencia (1500W). Ideal para batidos, sopas y triturar hielo. Como nueva.</p>
           <a href="html/trokar.html" class="btn-trokar">Trokar</a>
         </div>
       </div>
@@ -142,17 +167,64 @@
       <!-- Producto 3 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Jeans premium">
+          <img src="img/productos/aspiradora.jpg" alt="Aspiradora robot">
         </div>
         <div class="product-info">
-          <span class="product-category">Ropa</span>
-          <h3 class="product-title">Jeans premium</h3>
-          <p class="product-description">Jeans de marca premium, corte recto. Talla 32, poco uso y en perfectas condiciones.</p>
-          <a href="html/trokar.html" class="btn-trokar">Trokar</a>
+          <span class="product-category">Electrodomésticos</span>
+          <h3 class="product-title">Aspiradora robot</h3>
+          <p class="product-description">Robot aspirador con mapeo láser. Programable desde el móvil y compatible con asistentes de voz.</p>
+         <a href="html/trokar.html" class="btn-trokar">Trokar</a>
         </div>
       </div>
     </div>
   </div>
+  <!-- Categoría: Casas -->
+  <div id="Casas" class="category-block">
+    <div class="category-header">
+      <h3 class="category-title">Casas</h3>
+      <a href="categorias/vehiculos.html" class="view-more">Ver más <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="products-grid">
+      <!-- Producto 1 -->
+      <div class="product-card">
+        <div class="product-img">
+          <img src="img/productos/casa1.jpg" alt="Bicicleta montañera">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Edificios</span>
+          <h3 class="product-title">Casa de 6</h3>
+          <p class="product-description">Bicicleta de montaña con suspensión completa. 27 velocidades, frenos de disco hidráulicos.</p>
+          <a href="html/trokar.html" class="btn-trokar">Trokar</a>
+        </div>
+      </div>
+      
+      <!-- Producto 2 -->
+      <div class="product-card">
+        <div class="product-img">
+          <img src="img/productos/casa2.jpg" alt="Patineta eléctrica">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Edificios</span>
+          <h3 class="product-title">Casa de 2</h3>
+          <p class="product-description">Patineta eléctrica con autonomía de 25km. Velocidad máxima 25km/h, incluye cargador.</p>
+          <a href="html/trokar.html" class="btn-trokar">Trokar</a>
+        </div>
+      </div>
+
+      <!-- Producto 3 -->
+      <div class="product-card">
+        <div class="product-img">
+          <img src="img/productos/casa3.jpg" alt="Moto scooter">
+        </div>
+        <div class="product-info">
+          <span class="product-category">Edificios</span>
+          <h3 class="product-title">Casa de 4</h3>
+          <p class="product-description">Scooter 125cc con solo 5000km. Primer dueño, incluye dos cascos y maletín trasero.</p>
+         <a href="html/trokar.html" class="btn-trokar">Trokar</a>
+        </div>
+      </div>
+    </div>
+  
 
   <!-- Categoría: Vehículos -->
   <div id="Vehículos" class="category-block">
@@ -164,7 +236,7 @@
       <!-- Producto 1 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Bicicleta montañera">
+          <img src="img/productos/bici.jpg" alt="Bicicleta montañera">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -177,7 +249,7 @@
       <!-- Producto 2 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Patineta eléctrica">
+          <img src="img/productos/patinetaele.jpg" alt="Patineta eléctrica">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -190,7 +262,7 @@
       <!-- Producto 3 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Moto scooter">
+          <img src="img/productos/scooter.jpg" alt="Moto scooter">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -208,16 +280,17 @@
       <h3 class="category-title">Ropa</h3>
       <a href="categorias/electrodomesticos.html" class="view-more">Ver más <i class="fas fa-arrow-right"></i></a>
     </div>
+    </div>
     <div class="products-grid">
       <!-- Producto 1 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Cafetera automática">
+          <img src="img/productos/chaqueta.jpg" alt="Chaqueta de cuero">
         </div>
         <div class="product-info">
-          <span class="product-category">Electrodomésticos</span>
-          <h3 class="product-title">Cafetera automática</h3>
-          <p class="product-description">Cafetera con molinillo integrado y programador. Prepara todo tipo de cafés con un solo botón.</p>
+          <span class="product-category">Ropa</span>
+          <h3 class="product-title">Chaqueta de cuero</h3>
+          <p class="product-description">Chaqueta de cuero genuino en excelente estado. Talla M, color negro con detalles en plata.</p>
           <a href="html/trokar.html" class="btn-trokar">Trokar</a>
         </div>
       </div>
@@ -225,12 +298,12 @@
       <!-- Producto 2 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Licuadora profesional">
+          <img src="img/productos/vestido.jpg" alt="Vestido elegante">
         </div>
         <div class="product-info">
-          <span class="product-category">Electrodomésticos</span>
-          <h3 class="product-title">Licuadora profesional</h3>
-          <p class="product-description">Licuadora de alta potencia (1500W). Ideal para batidos, sopas y triturar hielo. Como nueva.</p>
+          <span class="product-category">Ropa</span>
+          <h3 class="product-title">Vestido elegante</h3>
+          <p class="product-description">Vestido para ocasiones especiales, color azul noche. Talla 38, usado una sola vez.</p>
           <a href="html/trokar.html" class="btn-trokar">Trokar</a>
         </div>
       </div>
@@ -238,59 +311,12 @@
       <!-- Producto 3 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Aspiradora robot">
+          <img src="img/productos/jean.jpg" alt="Jeans premium">
         </div>
         <div class="product-info">
-          <span class="product-category">Electrodomésticos</span>
-          <h3 class="product-title">Aspiradora robot</h3>
-          <p class="product-description">Robot aspirador con mapeo láser. Programable desde el móvil y compatible con asistentes de voz.</p>
-          <a href="html/trokar.html" class="btn-trokar">Trokar</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Categoría: Casas -->
-  <div id="Casas" class="category-block">
-    <div class="category-header">
-      <h3 class="category-title">Casas</h3>
-      <a href="categorias/vehiculos.html" class="view-more">Ver más <i class="fas fa-arrow-right"></i></a>
-    </div>
-    <div class="products-grid">
-      <!-- Producto 1 -->
-      <div class="product-card">
-        <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Bicicleta montañera">
-        </div>
-        <div class="product-info">
-          <span class="product-category">Vehículos</span>
-          <h3 class="product-title">Bicicleta montañera</h3>
-          <p class="product-description">Bicicleta de montaña con suspensión completa. 27 velocidades, frenos de disco hidráulicos.</p>
-          <a href="html/trokar.html" class="btn-trokar">Trokar</a>
-        </div>
-      </div>
-      
-      <!-- Producto 2 -->
-      <div class="product-card">
-        <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Patineta eléctrica">
-        </div>
-        <div class="product-info">
-          <span class="product-category">Vehículos</span>
-          <h3 class="product-title">Patineta eléctrica</h3>
-          <p class="product-description">Patineta eléctrica con autonomía de 25km. Velocidad máxima 25km/h, incluye cargador.</p>
-          <a href="html/trokar.html" class="btn-trokar">Trokar</a>
-        </div>
-      </div>
-
-      <!-- Producto 3 -->
-      <div class="product-card">
-        <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Moto scooter">
-        </div>
-        <div class="product-info">
-          <span class="product-category">Vehículos</span>
-          <h3 class="product-title">Moto scooter</h3>
-          <p class="product-description">Scooter 125cc con solo 5000km. Primer dueño, incluye dos cascos y maletín trasero.</p>
+          <span class="product-category">Ropa</span>
+          <h3 class="product-title">Jeans premium</h3>
+          <p class="product-description">Jeans de marca premium, corte recto. Talla 32, poco uso y en perfectas condiciones.</p>
           <a href="html/trokar.html" class="btn-trokar">Trokar</a>
         </div>
       </div>
@@ -306,7 +332,7 @@
       <!-- Producto 1 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Bicicleta montañera">
+          <img src="img/productos/bici.jpg" alt="Bicicleta montañera">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -319,7 +345,7 @@
       <!-- Producto 2 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Patineta eléctrica">
+          <img src="img/productos/patinetaele.jpg" alt="Patineta eléctrica">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -332,7 +358,7 @@
       <!-- Producto 3 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Moto scooter">
+          <img src="img/productos/scooter.jpg" alt="Moto scooter">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -353,7 +379,7 @@
       <!-- Producto 1 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Bicicleta montañera">
+          <img src="img/productos/juegos1.jpg" alt="Bicicleta montañera">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -366,7 +392,7 @@
       <!-- Producto 2 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Patineta eléctrica">
+          <img src="img/productos/juego2.jpg" alt="Patineta eléctrica">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -379,7 +405,7 @@
       <!-- Producto 3 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Moto scooter">
+          <img src="img/productos/juego3.jpg" alt="Moto scooter">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -400,7 +426,7 @@
       <!-- Producto 1 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Bicicleta montañera">
+          <img src="img/productos/gorrolana.jpg" alt="Bicicleta montañera">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -413,7 +439,7 @@
       <!-- Producto 2 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Patineta eléctrica">
+          <img src="img/productos/chaqueta.jpg" alt="Patineta eléctrica">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -426,7 +452,7 @@
       <!-- Producto 3 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Moto scooter">
+          <img src="img/productos/licuadora.jpg" alt="Moto scooter">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -447,7 +473,7 @@
       <!-- Producto 1 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Bicicleta montañera">
+          <img src="img/productos/pinza.png" alt="Bicicleta montañera">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -460,7 +486,7 @@
       <!-- Producto 2 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Patineta eléctrica">
+          <img src="img/productos/motocierrra.jpg" alt="Patineta eléctrica">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -473,7 +499,7 @@
       <!-- Producto 3 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Moto scooter">
+          <img src="img/productos/martillo.jpg" alt="Moto scooter">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -494,7 +520,7 @@
       <!-- Producto 1 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Bicicleta montañera">
+          <img src="img/productos/bici.jpg" alt="Bicicleta montañera">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -507,7 +533,7 @@
       <!-- Producto 2 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Patineta eléctrica">
+          <img src="img/productos/scooter.jpg" alt="Patineta eléctrica">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -520,7 +546,7 @@
       <!-- Producto 3 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Moto scooter">
+          <img src="img/productos/patinetaele.jpg" alt="Moto scooter">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -541,7 +567,7 @@
       <!-- Producto 1 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Bicicleta montañera">
+          <img src="img/productos/caravanas.jpg" alt="Bicicleta montañera">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -554,7 +580,7 @@
       <!-- Producto 2 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Patineta eléctrica">
+          <img src="img/productos/licuadora.jpg" alt="Patineta eléctrica">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -567,7 +593,7 @@
       <!-- Producto 3 -->
       <div class="product-card">
         <div class="product-img">
-          <img src="/api/placeholder/400/200" alt="Moto scooter">
+          <img src="img/productos/aspiradora.jpg" alt="Moto scooter">
         </div>
         <div class="product-info">
           <span class="product-category">Vehículos</span>
@@ -613,15 +639,9 @@
       </div>
     </div>
   </footer>
+   <script src="js/login.js"></script>
 
-  <script>
-    // Script para manejar clics en categorías
-    document.querySelectorAll('.category-item').forEach(item => {
-      item.addEventListener('click', function() {
-        const category = this.textContent.toLowerCase();
-        window.location.href = `categorias/${category}.html`;
-      });
-    });
-  </script>
+
+</div>
 </body>
 </html>
